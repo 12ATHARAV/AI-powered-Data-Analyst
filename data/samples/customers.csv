@@ -1,0 +1,201 @@
+customer_id,name,segment,country,signup_date
+1,Customer 001,Corporate,USA,2021-01-14
+2,Customer 002,Consumer,USA,2021-11-27
+3,Customer 003,Small Business,France,2022-07-19
+4,Customer 004,Corporate,UK,2023-10-03
+5,Customer 005,Consumer,UK,2023-03-20
+6,Customer 006,Small Business,UK,2023-05-06
+7,Customer 007,Corporate,UK,2022-08-20
+8,Customer 008,Corporate,India,2021-05-02
+9,Customer 009,Consumer,UK,2022-03-05
+10,Customer 010,Consumer,France,2023-12-28
+11,Customer 011,Consumer,India,2021-02-18
+12,Customer 012,Small Business,France,2023-08-21
+13,Customer 013,Corporate,UK,2023-01-20
+14,Customer 014,Small Business,USA,2021-11-07
+15,Customer 015,Consumer,India,2023-05-02
+16,Customer 016,Consumer,India,2023-07-06
+17,Customer 017,Corporate,UK,2021-02-17
+18,Customer 018,Consumer,UK,2021-04-27
+19,Customer 019,Small Business,USA,2022-12-30
+20,Customer 020,Corporate,Germany,2023-12-31
+21,Customer 021,Corporate,Germany,2021-01-27
+22,Customer 022,Consumer,France,2022-12-30
+23,Customer 023,Small Business,India,2021-05-30
+24,Customer 024,Small Business,USA,2022-12-13
+25,Customer 025,Corporate,Germany,2022-11-14
+26,Customer 026,Consumer,USA,2021-04-10
+27,Customer 027,Consumer,UK,2023-01-16
+28,Customer 028,Consumer,France,2023-09-10
+29,Customer 029,Consumer,India,2023-08-04
+30,Customer 030,Corporate,UK,2021-02-01
+31,Customer 031,Corporate,UK,2021-09-27
+32,Customer 032,Small Business,Germany,2021-09-21
+33,Customer 033,Consumer,USA,2022-05-12
+34,Customer 034,Consumer,France,2021-06-06
+35,Customer 035,Consumer,USA,2023-07-25
+36,Customer 036,Consumer,USA,2023-05-01
+37,Customer 037,Consumer,France,2023-06-05
+38,Customer 038,Consumer,USA,2021-08-06
+39,Customer 039,Consumer,UK,2021-01-16
+40,Customer 040,Corporate,UK,2023-09-25
+41,Customer 041,Consumer,USA,2021-11-13
+42,Customer 042,Small Business,USA,2022-12-20
+43,Customer 043,Corporate,UK,2023-09-23
+44,Customer 044,Consumer,France,2021-02-09
+45,Customer 045,Small Business,India,2021-01-06
+46,Customer 046,Small Business,USA,2021-01-06
+47,Customer 047,Consumer,India,2021-06-21
+48,Customer 048,Consumer,Germany,2021-02-26
+49,Customer 049,Corporate,Germany,2023-06-17
+50,Customer 050,Consumer,Germany,2022-10-26
+51,Customer 051,Consumer,India,2023-12-10
+52,Customer 052,Consumer,USA,2023-05-28
+53,Customer 053,Corporate,France,2023-11-21
+54,Customer 054,Corporate,UK,2021-09-19
+55,Customer 055,Corporate,UK,2021-11-12
+56,Customer 056,Corporate,India,2023-07-20
+57,Customer 057,Consumer,USA,2021-09-26
+58,Customer 058,Corporate,UK,2021-03-04
+59,Customer 059,Consumer,UK,2023-01-03
+60,Customer 060,Consumer,France,2023-05-28
+61,Customer 061,Corporate,UK,2023-11-27
+62,Customer 062,Consumer,USA,2023-10-13
+63,Customer 063,Corporate,Germany,2021-05-12
+64,Customer 064,Corporate,UK,2023-04-26
+65,Customer 065,Corporate,USA,2023-07-16
+66,Customer 066,Corporate,UK,2023-02-04
+67,Customer 067,Corporate,Germany,2023-06-17
+68,Customer 068,Consumer,UK,2023-07-07
+69,Customer 069,Consumer,UK,2022-05-04
+70,Customer 070,Consumer,UK,2021-02-13
+71,Customer 071,Consumer,UK,2022-05-15
+72,Customer 072,Consumer,UK,2021-08-09
+73,Customer 073,Small Business,UK,2021-05-05
+74,Customer 074,Consumer,France,2021-05-17
+75,Customer 075,Consumer,India,2023-02-03
+76,Customer 076,Consumer,Germany,2022-07-07
+77,Customer 077,Consumer,Germany,2022-08-15
+78,Customer 078,Corporate,France,2023-03-27
+79,Customer 079,Corporate,USA,2022-08-24
+80,Customer 080,Corporate,USA,2022-11-21
+81,Customer 081,Corporate,UK,2021-04-05
+82,Customer 082,Consumer,UK,2023-07-21
+83,Customer 083,Small Business,UK,2022-05-07
+84,Customer 084,Consumer,UK,2021-06-19
+85,Customer 085,Consumer,France,2023-06-10
+86,Customer 086,Consumer,Germany,2023-03-16
+87,Customer 087,Corporate,UK,2021-02-28
+88,Customer 088,Consumer,Germany,2021-07-31
+89,Customer 089,Consumer,France,2021-01-18
+90,Customer 090,Corporate,UK,2021-10-24
+91,Customer 091,Consumer,USA,2021-04-20
+92,Customer 092,Corporate,UK,2023-02-17
+93,Customer 093,Consumer,USA,2022-07-27
+94,Customer 094,Consumer,UK,2023-12-10
+95,Customer 095,Consumer,USA,2023-04-01
+96,Customer 096,Corporate,USA,2022-11-01
+97,Customer 097,Consumer,USA,2022-07-12
+98,Customer 098,Consumer,USA,2021-03-01
+99,Customer 099,Consumer,USA,2021-03-18
+100,Customer 100,Small Business,India,2022-11-06
+101,Customer 101,Small Business,USA,2021-01-05
+102,Customer 102,Corporate,UK,2021-02-16
+103,Customer 103,Consumer,France,2021-08-28
+104,Customer 104,Small Business,France,2023-08-27
+105,Customer 105,Corporate,USA,2022-05-18
+106,Customer 106,Corporate,France,2023-02-16
+107,Customer 107,Consumer,Germany,2022-03-27
+108,Customer 108,Consumer,India,2021-07-09
+109,Customer 109,Consumer,Germany,2022-02-11
+110,Customer 110,Small Business,UK,2021-04-11
+111,Customer 111,Consumer,France,2023-04-24
+112,Customer 112,Consumer,Germany,2021-07-20
+113,Customer 113,Consumer,UK,2022-02-17
+114,Customer 114,Corporate,Germany,2023-12-10
+115,Customer 115,Consumer,Germany,2022-10-11
+116,Customer 116,Small Business,Germany,2022-05-18
+117,Customer 117,Corporate,Germany,2022-08-18
+118,Customer 118,Corporate,India,2023-05-09
+119,Customer 119,Consumer,Germany,2021-10-06
+120,Customer 120,Corporate,USA,2022-11-28
+121,Customer 121,Corporate,USA,2023-08-14
+122,Customer 122,Corporate,France,2022-09-19
+123,Customer 123,Consumer,Germany,2022-05-04
+124,Customer 124,Consumer,France,2021-06-08
+125,Customer 125,Consumer,USA,2021-09-29
+126,Customer 126,Consumer,India,2023-11-02
+127,Customer 127,Consumer,USA,2022-08-16
+128,Customer 128,Consumer,France,2021-11-26
+129,Customer 129,Consumer,India,2022-04-04
+130,Customer 130,Corporate,Germany,2022-09-25
+131,Customer 131,Consumer,India,2022-08-12
+132,Customer 132,Small Business,UK,2023-02-06
+133,Customer 133,Corporate,India,2021-10-09
+134,Customer 134,Consumer,USA,2022-12-12
+135,Customer 135,Corporate,UK,2022-04-30
+136,Customer 136,Consumer,India,2023-10-27
+137,Customer 137,Small Business,UK,2021-06-22
+138,Customer 138,Consumer,India,2021-06-12
+139,Customer 139,Corporate,UK,2022-05-21
+140,Customer 140,Consumer,USA,2022-07-11
+141,Customer 141,Consumer,UK,2023-01-27
+142,Customer 142,Consumer,USA,2022-03-19
+143,Customer 143,Small Business,USA,2023-09-28
+144,Customer 144,Corporate,France,2022-06-04
+145,Customer 145,Consumer,USA,2021-05-22
+146,Customer 146,Consumer,USA,2021-05-11
+147,Customer 147,Consumer,USA,2023-12-02
+148,Customer 148,Corporate,Germany,2021-05-27
+149,Customer 149,Consumer,France,2023-11-04
+150,Customer 150,Consumer,UK,2021-11-01
+151,Customer 151,Small Business,India,2021-04-13
+152,Customer 152,Small Business,UK,2021-11-30
+153,Customer 153,Consumer,France,2022-11-05
+154,Customer 154,Corporate,France,2022-04-14
+155,Customer 155,Consumer,France,2023-05-11
+156,Customer 156,Corporate,France,2022-11-01
+157,Customer 157,Consumer,USA,2022-03-15
+158,Customer 158,Corporate,USA,2022-11-26
+159,Customer 159,Corporate,France,2023-11-30
+160,Customer 160,Corporate,France,2022-03-27
+161,Customer 161,Consumer,USA,2021-06-18
+162,Customer 162,Small Business,UK,2022-03-24
+163,Customer 163,Consumer,UK,2023-07-09
+164,Customer 164,Consumer,UK,2021-08-27
+165,Customer 165,Corporate,India,2023-11-06
+166,Customer 166,Consumer,Germany,2022-10-07
+167,Customer 167,Small Business,USA,2022-10-21
+168,Customer 168,Small Business,India,2021-12-14
+169,Customer 169,Consumer,Germany,2023-10-05
+170,Customer 170,Small Business,USA,2021-02-09
+171,Customer 171,Consumer,USA,2021-11-24
+172,Customer 172,Corporate,Germany,2022-04-04
+173,Customer 173,Consumer,Germany,2022-06-07
+174,Customer 174,Small Business,Germany,2022-06-04
+175,Customer 175,Consumer,UK,2021-06-11
+176,Customer 176,Consumer,UK,2021-09-05
+177,Customer 177,Consumer,USA,2021-04-15
+178,Customer 178,Small Business,Germany,2022-09-19
+179,Customer 179,Small Business,Germany,2022-01-20
+180,Customer 180,Corporate,India,2022-09-12
+181,Customer 181,Small Business,France,2022-10-08
+182,Customer 182,Small Business,USA,2023-02-08
+183,Customer 183,Corporate,USA,2022-08-23
+184,Customer 184,Consumer,France,2022-12-11
+185,Customer 185,Corporate,Germany,2022-10-05
+186,Customer 186,Corporate,USA,2022-12-16
+187,Customer 187,Consumer,India,2022-11-07
+188,Customer 188,Consumer,USA,2021-12-13
+189,Customer 189,Corporate,UK,2021-09-27
+190,Customer 190,Consumer,USA,2023-05-13
+191,Customer 191,Small Business,India,2022-01-11
+192,Customer 192,Consumer,UK,2022-08-25
+193,Customer 193,Consumer,France,2021-08-04
+194,Customer 194,Small Business,India,2022-04-18
+195,Customer 195,Consumer,UK,2022-08-03
+196,Customer 196,Consumer,France,2022-11-17
+197,Customer 197,Corporate,USA,2022-07-31
+198,Customer 198,Small Business,Germany,2022-01-30
+199,Customer 199,Consumer,France,2023-11-20
+200,Customer 200,Consumer,Germany,2022-07-16
