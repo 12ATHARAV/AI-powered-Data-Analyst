@@ -63,6 +63,9 @@ backend/storage/uploads/*
 !backend/storage/uploads/.gitkeep
 data/samples/*.parquet
 
+# Documents & Local Files
+*.pdf
+
 # IDE
 .idea/
 .vscode/
