@@ -233,3 +233,34 @@ async def test_dashboard_and_health_generation():
     audits = await get_all_cleaning_audits()
     assert len(audits) >= 1
 
+def test_session_database_isolation_and_wal():
+    """Verify that different session IDs operate on isolated databases with WAL mode."""
+    from backend.app.db.engine import get_connection, list_all_tables, session_context
+
+    # Session A
+    token_a = session_context.set("test_session_alpha")
+    try:
+        with get_connection(readonly=False) as conn_a:
+            cur = conn_a.cursor()
+            cur.execute("PRAGMA journal_mode;")
+            journal = cur.fetchone()[0]
+            assert journal.lower() == "wal"
+            cur.execute("CREATE TABLE isolated_alpha (id INT, val TEXT);")
+            cur.execute("INSERT INTO isolated_alpha VALUES (1, 'secret_a');")
+            conn_a.commit()
+
+        tables_a = list_all_tables()
+        assert "isolated_alpha" in tables_a
+    finally:
+        session_context.reset(token_a)
+
+    # Session B
+    token_b = session_context.set("test_session_beta")
+    try:
+        tables_b = list_all_tables()
+        # Session B must NOT see Session A's private table
+        assert "isolated_alpha" not in tables_b
+    finally:
+        session_context.reset(token_b)
+
+

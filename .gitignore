@@ -47,12 +47,18 @@ yarn-error.log*
 
 # Databases & Uploads
 *.db
+*.db-wal
+*.db-shm
 *.sqlite
 *.sqlite3
 storage/*.db
+storage/sessions/*
+!storage/sessions/.gitkeep
 storage/uploads/*
 !storage/uploads/.gitkeep
 backend/storage/*.db
+backend/storage/sessions/*
+!backend/storage/sessions/.gitkeep
 backend/storage/uploads/*
 !backend/storage/uploads/.gitkeep
 data/samples/*.parquet
