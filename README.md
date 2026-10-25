@@ -17,6 +17,17 @@ An AI-powered data analysis platform that lets users upload CSV files and intera
 
 Deployed on **AWS EC2** with automated **Let's Encrypt SSL (HTTPS)**, **DuckDNS**, **Docker Compose**, and **Nginx reverse proxying**.
 
+<img width="1917" height="970" alt="image" src="https://github.com/user-attachments/assets/76afc5c0-1928-4988-bc5c-02984c989766" />
+<img width="1917" height="965" alt="image" src="https://github.com/user-attachments/assets/275c87d6-092d-48b0-8f40-f9f0dcc8d5f3" />
+<img width="1916" height="975" alt="image" src="https://github.com/user-attachments/assets/0085f87f-0ae3-4095-b3f3-826506fcacef" />
+<img width="1917" height="967" alt="image" src="https://github.com/user-attachments/assets/33bf596a-6286-49a4-b619-9467cf51ce81" />
+<img width="1917" height="967" alt="image" src="https://github.com/user-attachments/assets/77176a14-a2c6-4df3-8348-9240559b73e2" />
+<img width="1917" height="966" alt="image" src="https://github.com/user-attachments/assets/ff226bcc-6db5-41a1-9f6e-5cf5b72b9ac4" />
+<img width="1917" height="967" alt="image" src="https://github.com/user-attachments/assets/426cb438-724d-4754-a1cc-e17099f8ee9c" />
+<img width="1917" height="963" alt="image" src="https://github.com/user-attachments/assets/8d24e0bf-31e0-4ae2-a596-750fb895e533" />
+
+
+
 ---
 
 ## How It Works
