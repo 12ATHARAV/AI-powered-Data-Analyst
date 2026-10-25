@@ -424,7 +424,9 @@ export const App: React.FC = () => {
               />
             )}
 
-            {activeTab === 'dashboard' && <DashboardView />}
+            {activeTab === 'dashboard' && (
+              <DashboardView key={tables.map((t) => `${t.name}_${t.row_count}`).join(':')} />
+            )}
 
             {activeTab === 'cleaning' && <CleaningAuditView />}
 
