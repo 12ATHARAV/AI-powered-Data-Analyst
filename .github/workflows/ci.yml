@@ -1,0 +1,103 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+  workflow_dispatch:
+
+jobs:
+  backend-checks:
+    name: Backend Tests & Linting
+    runs-on: ubuntu-latest
+    env:
+      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY || 'dummy-ci-nvidia-key' }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY || 'dummy-ci-groq-key' }}
+      PYTHONPATH: .
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt pytest pytest-asyncio
+
+      - name: Run Backend Tests
+        run: |
+          python -m pytest backend/tests -v
+
+  frontend-checks:
+    name: Frontend Build & Linting
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Build Frontend
+        run: npm run build
+
+  docker-verification:
+    name: Docker Build & Stack Verification
+    runs-on: ubuntu-latest
+    needs: [backend-checks, frontend-checks]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Validate Docker Compose Configuration
+        run: docker compose config
+
+      - name: Build and Start Containers
+        run: docker compose up -d --build
+
+      - name: Verify Backend Health
+        run: |
+          echo "Waiting for services to become healthy..."
+          for i in {1..12}; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/health || true)
+            if [ "$STATUS" = "200" ]; then
+              echo "Backend is healthy (HTTP 200)!"
+              exit 0
+            fi
+            echo "Waiting for backend health check (attempt $i/12)..."
+            sleep 5
+          done
+          echo "Health check timed out"
+          docker compose logs
+          exit 1
+
+      - name: Verify Frontend Proxy
+        run: |
+          curl -f -s -o /dev/null http://localhost:5173/
+          echo "Frontend responded successfully!"
+
+      - name: Stop Containers
+        if: always()
+        run: docker compose down
