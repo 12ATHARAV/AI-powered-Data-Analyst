@@ -1,84 +1,45 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: ada-postgres
-    environment:
-      POSTGRES_USER: ada
-      POSTGRES_PASSWORD: ada
-      POSTGRES_DB: ada
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "${POSTGRES_PORT:-5434}:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ada"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  redis:
-    image: redis:7-alpine
-    container_name: ada-redis
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  qdrant:
-    image: qdrant/qdrant
-    container_name: ada-qdrant
-    volumes:
-      - qdrantdata:/qdrant/storage
-    ports:
-      - "6333:6333"
-    healthcheck:
-      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  api:
+  backend:
+    container_name: data-analyst-backend
     build:
       context: .
       dockerfile: backend/Dockerfile
-    container_name: ada-api
-    env_file: .env
-    environment:
-      DATABASE_URL: postgresql+psycopg://ada:ada@postgres:5432/ada
-      REDIS_URL: redis://redis:6379/0
-      QDRANT_URL: http://qdrant:6333
-      UPLOAD_DIR: /app/storage/uploads
-      SAMPLE_DIR: /app/data/samples
-    volumes:
-      - uploads:/app/storage/uploads
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
-    restart: unless-stopped
     ports:
       - "8000:8000"
-
-  web:
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
-      args:
-        VITE_CLERK_PUBLISHABLE_KEY: ${CLERK_PUBLISHABLE_KEY:-}
-    container_name: ada-web
-    ports:
-      - "8080:80"
-    depends_on:
-      - api
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY:-}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - DATABASE_PATH=storage/analyst.db
+    volumes:
+      - ./storage:/app/storage
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     restart: unless-stopped
+    networks:
+      - app-network
 
-volumes:
-  pgdata:
-  qdrantdata:
-  uploads:
+  frontend:
+    container_name: data-analyst-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,48 +1,49 @@
-from functools import lru_cache
-
+import os
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 class Settings(BaseSettings):
-    """Application configuration settings loaded from environment or .env."""
-
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(BASE_DIR / ".env"),
         env_file_encoding="utf-8",
-        extra="ignore",
+        extra="ignore"
     )
 
-    database_url: str = "postgresql+psycopg://ada:ada@localhost:5432/ada"
-    redis_url: str = "redis://localhost:6379/0"
-    qdrant_url: str = "http://localhost:6333"
-    upload_dir: str = "./storage/uploads"
-    sample_dir: str = "./data/samples"
-    max_upload_mb: int = 25
-    max_files_per_user: int = 10
-    max_rows: int = 1000000
-    sql_timeout_s: int = 20
-    sql_row_limit: int = 10000
-    llm_rows_limit: int = 40
-    agent_max_iters: int = 6
-    cache_ttl_s: int = 3600
+    # Primary LLM
+    NVIDIA_API_KEY: str = ""
+    NVIDIA_BASE_URL: str = "https://integrate.api.nvidia.com/v1"
+    NVIDIA_MODEL: str = "nvidia/nemotron-3.5-lightning-30b-a3b"
 
-    nvidia_api_key: str = ""
-    nvidia_base_url: str = "https://integrate.api.nvidia.com/v1"
-    nvidia_model: str = "nvidia/nemotron-3-super-120b-a12b"
+    # Fallback LLM
+    GROQ_API_KEY: str = ""
+    GROQ_BASE_URL: str = "https://api.groq.com/openai/v1"
+    GROQ_MODEL: str = "openai/gpt-oss-20b"
 
-    groq_api_key: str = ""
-    groq_base_url: str = "https://api.groq.com/openai/v1"
-    groq_model: str = "openai/gpt-oss-120b"
+    # Server & Storage
+    BACKEND_PORT: int = 8000
+    FRONTEND_PORT: int = 5173
+    DATABASE_PATH: str = str(BASE_DIR / "storage" / "analyst.db")
+    UPLOAD_DIR: str = str(BASE_DIR / "storage" / "uploads")
+    SAMPLE_DIR: str = str(BASE_DIR / "data" / "samples")
 
-    clerk_publishable_key: str = ""
-    clerk_issuer: str = ""
-    clerk_jwks_url: str = ""
-    clerk_authorized_parties: str = ""
+    def ensure_dirs(self) -> None:
+        Path(self.DATABASE_PATH).parent.mkdir(parents=True, exist_ok=True)
+        Path(self.UPLOAD_DIR).mkdir(parents=True, exist_ok=True)
 
-    embedding_model: str = "BAAI/bge-small-en-v1.5"
+settings = Settings()
 
+def _resolve_from_root(p: str) -> str:
+    path = Path(p)
+    if path.is_absolute():
+        return str(path)
+    return str(BASE_DIR / path)
 
-@lru_cache
-def get_settings() -> Settings:
-    """Return cached application settings singleton."""
-    return Settings()
+# .env uses root-relative paths; anchor them so the app behaves the same
+# no matter which directory uvicorn is launched from.
+settings.DATABASE_PATH = _resolve_from_root(settings.DATABASE_PATH)
+settings.UPLOAD_DIR = _resolve_from_root(settings.UPLOAD_DIR)
+settings.SAMPLE_DIR = _resolve_from_root(settings.SAMPLE_DIR)
+
+settings.ensure_dirs()

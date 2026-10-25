@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+
+# Frontend build artifacts and dependencies
+frontend/node_modules/
+frontend/dist/
+
+# Version control & IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Logs
+*.log
