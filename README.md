@@ -17,6 +17,16 @@ An AI-powered data analysis platform that lets users upload CSV files and intera
 
 Deployed on **AWS EC2** with automated **Let's Encrypt SSL (HTTPS)**, **DuckDNS**, **Docker Compose**, and **Nginx reverse proxying**.
 
+## 🎬 Demo Video
+
+
+
+
+
+
+
+## Images
+
 <img width="1917" height="970" alt="image" src="https://github.com/user-attachments/assets/76afc5c0-1928-4988-bc5c-02984c989766" />
 <img width="1917" height="965" alt="image" src="https://github.com/user-attachments/assets/275c87d6-092d-48b0-8f40-f9f0dcc8d5f3" />
 <img width="1916" height="975" alt="image" src="https://github.com/user-attachments/assets/0085f87f-0ae3-4095-b3f3-826506fcacef" />
