@@ -61,7 +61,7 @@ def clean_and_remediate_dataframe(
     imputation_fixes: List[Dict[str, Any]] = []
 
     # 1. Whitespace & Casing Harmonization for String/Categorical Columns
-    for col in df.select_dtypes(include=["object"]).columns:
+    for col in df.select_dtypes(include=["object", "string"]).columns:
         # Strip string values without converting NaNs to 'nan'
         df[col] = df[col].apply(lambda x: x.strip() if isinstance(x, str) else x)
 

@@ -15,7 +15,7 @@ def generate_table_eda_profile(table_name: str) -> Dict[str, Any]:
         return {"error": err or "Table is empty"}
 
     numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
-    categorical_cols = df.select_dtypes(include=["object", "category"]).columns.tolist()
+    categorical_cols = df.select_dtypes(include=["object", "category", "string"]).columns.tolist()
     date_cols = [c for c in df.columns if "date" in c.lower() or "time" in c.lower()]
 
     # 1. Numeric Univariate Statistics

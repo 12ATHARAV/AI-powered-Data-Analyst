@@ -200,7 +200,18 @@ def test_application_imports_and_routes_registered():
     """Verify the full FastAPI app (incl. agent graph) imports and all routers are wired."""
     from backend.app.main import app
 
-    paths = {route.path for route in app.routes}
+    paths = set()
+
+    def extract_paths(routes):
+        for route in routes:
+            if hasattr(route, "path"):
+                paths.add(route.path)
+            if hasattr(route, "routes"):
+                extract_paths(route.routes)
+
+    extract_paths(app.routes)
+    paths.update(app.openapi().get("paths", {}).keys())
+
     for expected in [
         "/api/health",
         "/api/upload",

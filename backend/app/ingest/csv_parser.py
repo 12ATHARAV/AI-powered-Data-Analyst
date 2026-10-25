@@ -187,7 +187,7 @@ def parse_and_load_csv(
     # (U+00FF 'ÿ', U+00BF '¿', U+00BD '½') that trail corrupted strings.
     junk_tail = re.compile(r"[?\ufffd\u00ff\u00bf\u00bd]+$")
     junk_chars = ("\ufffd", "\u00ff", "\u00bf", "\u00bd")
-    for col in df.select_dtypes(include=["object"]).columns:
+    for col in df.select_dtypes(include=["object", "string"]).columns:
         def _has_junk(x) -> bool:
             return isinstance(x, str) and any(c in x for c in junk_chars)
         mask = df[col].apply(_has_junk)
@@ -210,7 +210,7 @@ def parse_and_load_csv(
     # so aggregates (SUM/AVG) work for the SQL agent. Handles "$", commas,
     # surrounding whitespace, wrapper quote characters ("475" style) and
     # percent suffixes; unparseable cells become nulls (imputed later).
-    for col in df.select_dtypes(include=["object"]).columns:
+    for col in df.select_dtypes(include=["object", "string"]).columns:
         series = df[col].dropna()
         if series.empty:
             continue
