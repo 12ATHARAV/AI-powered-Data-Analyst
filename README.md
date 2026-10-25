@@ -1,12 +1,21 @@
 # AI-Powered Data Analyst
 
+[![Live App](https://img.shields.io/badge/Live%20Demo-ai--analyst.duckdns.org-brightgreen?style=flat&logo=googlechrome&logoColor=white)](https://ai-analyst.duckdns.org)
+[![SSL](https://img.shields.io/badge/SSL-Let's%20Encrypt%20HTTPS-003A70?logo=letsencrypt&logoColor=white)](https://ai-analyst.duckdns.org)
+[![AWS](https://img.shields.io/badge/Cloud-AWS%20EC2-FF9900?logo=amazonec2&logoColor=white)](https://ai-analyst.duckdns.org)
 [![CI/CD Pipeline](https://github.com/12ATHARAV/AI-powered-Data-Analyst/actions/workflows/ci.yml/badge.svg)](https://github.com/12ATHARAV/AI-powered-Data-Analyst/actions/workflows/ci.yml)
 [![Docker](https://img.shields.io/badge/Docker-Supported-2496ED?logo=docker&logoColor=white)](docker-compose.yml)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![LangGraph](https://img.shields.io/badge/LangGraph-Agents-FF6F00?logo=langchain&logoColor=white)](https://langchain-ai.github.io/langgraph/)
 [![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=black)](https://react.dev)
 
-An AI-powered data analysis tool that lets users upload CSV files and interact with their data using plain English. It automatically cleans messy data, generates SQL queries, creates interactive charts, detects statistical outliers, and explains its findings in a modern web dashboard.
+> 🚀 **Live Demo:** [https://ai-analyst.duckdns.org](https://ai-analyst.duckdns.org)  
+> 📖 **API Documentation (Swagger):** [https://ai-analyst.duckdns.org/docs](https://ai-analyst.duckdns.org/docs)  
+> 🩺 **System Health Endpoint:** [https://ai-analyst.duckdns.org/api/health](https://ai-analyst.duckdns.org/api/health)
+
+An AI-powered data analysis platform that lets users upload CSV files and interact with their data using plain English. It automatically cleans messy data, generates SQL queries, creates interactive charts, detects statistical outliers, and explains its findings in a modern web dashboard.
+
+Deployed on **AWS EC2** with automated **Let's Encrypt SSL (HTTPS)**, **DuckDNS**, **Docker Compose**, and **Nginx reverse proxying**.
 
 ---
 
@@ -15,11 +24,11 @@ An AI-powered data analysis tool that lets users upload CSV files and interact w
 ```mermaid
 flowchart LR
     User["User Query / CSV Upload"] --> Frontend["React Frontend (Vite)"]
-    Frontend --> Nginx["Nginx Reverse Proxy"]
-    Nginx --> Backend["FastAPI Backend"]
+    Frontend --> Nginx["Nginx Reverse Proxy\n(HTTPS Port 443 / 80)"]
+    Nginx --> Backend["FastAPI Backend (Port 8000)"]
     
     subgraph Storage["Storage Layer"]
-        DB[("SQLite (WAL Mode)\nSession-Isolated")]
+        DB[("SQLite (WAL Mode)\nSession-Isolated Sandbox")]
     end
     
     subgraph Agents["LangGraph Agent Workflow"]
@@ -79,68 +88,58 @@ flowchart LR
 
 ---
 
-## Quickstart
+## Deployment & Setup
 
-### Option 1: Running with Docker (Recommended)
+### Production (AWS EC2 + DuckDNS + SSL)
 
-1. **Clone the repository:**
+The live application runs on an AWS EC2 Ubuntu instance with:
+1. **DuckDNS**: Maps `ai-analyst.duckdns.org` to the EC2 Elastic/Public IPv4.
+2. **Certbot (Let's Encrypt)**: Provides free, auto-renewing SSL certificates.
+3. **Nginx Reverse Proxy**: Listens on Port 80 (auto-redirecting to HTTPS) and Port 443 (serving SSL and proxying `/api` to FastAPI).
+4. **Docker Compose Production Override**:
    ```bash
-   git clone https://github.com/12ATHARAV/AI-powered-Data-Analyst.git
-   cd AI-powered-Data-Analyst
+   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
    ```
-
-2. **Set up environment variables:**
-   ```bash
-   cp .env.example .env
-   ```
-   Add your `NVIDIA_API_KEY` and/or `GROQ_API_KEY` in `.env` (the application also works with fallback mock data if no keys are provided).
-
-3. **Start the containers:**
-   ```bash
-   docker compose up -d --build
-   ```
-
-4. **Open in browser:**
-   * **Frontend UI**: [http://localhost:5173](http://localhost:5173)
-   * **Backend API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
-
-To stop the containers:
-```bash
-docker compose down
-```
 
 ---
 
-### Option 2: Running Locally
+### Local Development
 
-#### 1. Backend Setup
+#### Option 1: Running with Docker Locally
 ```bash
-# Create and activate virtual environment
+# 1. Clone repository
+git clone https://github.com/12ATHARAV/AI-powered-Data-Analyst.git
+cd AI-powered-Data-Analyst
+
+# 2. Configure environment variables
+cp .env.example .env
+
+# 3. Start containers
+docker compose up -d --build
+```
+Access at [http://localhost:5173](http://localhost:5173).
+
+#### Option 2: Running Without Docker
+
+**Backend:**
+```bash
 python -m venv .venv
-# On Windows:
-.venv\Scripts\activate
-# On Linux/macOS:
-source .venv/bin/activate
-
-# Install dependencies
+source .venv/bin/activate  # Or on Windows: .venv\Scripts\activate
 pip install -r backend/requirements.txt pytest pytest-asyncio
-
-# Start FastAPI server
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-#### 2. Frontend Setup
-In a new terminal:
+**Frontend:**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173).
+Access at [http://localhost:5173](http://localhost:5173).
 
 ---
 
-## Testing
+## Testing & Quality Assurance
 
 Run the automated test suite covering CSV ingestion, SQL safety guardrails, anomaly detection, data cleaning, and session isolation:
 ```bash
@@ -178,10 +177,12 @@ AI-powered-Data-Analyst/
 ├── frontend/
 │   ├── src/                       # React components, dashboard, chat, and chart renderers
 │   ├── Dockerfile                 # Frontend multi-stage Docker configuration
-│   ├── nginx.conf                 # Nginx proxy and SSE configuration
+│   ├── nginx.conf                 # Local Nginx configuration (Port 80)
+│   ├── nginx.prod.conf            # Production Nginx SSL configuration (Port 443 + 80 redirect)
 │   └── package.json
 ├── storage/                       # Local SQLite database and uploads
-├── docker-compose.yml             # Full-stack Docker orchestration
+├── docker-compose.yml             # Local Docker orchestration
+├── docker-compose.prod.yml        # Production Docker override (Ports 80/443 + SSL mounts)
 └── README.md
 ```
 
